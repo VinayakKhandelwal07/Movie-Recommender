@@ -1,0 +1,291 @@
+:root {
+  --bg-light: #000000; /* Black background for light theme */
+  --text-light: #ffffff; /* White text on black background */
+  --card-light: #333333; /* Dark gray card for light theme */
+  --shadow-light: rgba(0, 0, 0, 0.1);
+
+  --bg-dark: #000000; /* Black background for dark theme */
+  --text-dark: #ffffff; /* White text on black background */
+  --card-dark: #1e1e1e; /* Dark card for dark theme */
+  --shadow-dark: rgba(255, 255, 255, 0.1);
+  --accent-color: #e50914; /* Netflix Red Accent color */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Light theme styles */
+body.light {
+  background-color: var(--bg-light);
+  color: var(--text-light);
+}
+
+body.light .movie-card {
+  background: var(--card-light);
+  box-shadow: 0 4px 20px var(--shadow-light);
+}
+
+body.light .watch-toggle {
+  border: 2px solid var(--accent-color);
+  color: var(--accent-color);
+}
+
+body.light .watch-toggle:hover,
+body.light .watch-toggle.watched {
+  background: var(--accent-color);
+  color: white;
+}
+
+body.light .remove-btn {
+  background-color: #ff4d4f;
+}
+
+body.light .remove-btn:hover {
+  background-color: #e60000;
+}
+
+/* Dark theme styles */
+body.dark {
+  background-color: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+body.dark .movie-card {
+  background: var(--card-dark);
+  box-shadow: 0 4px 20px var(--shadow-dark);
+}
+
+body.dark .watch-toggle {
+  border: 2px solid var(--accent-color);
+  color: var(--accent-color);
+}
+
+body.dark .watch-toggle:hover,
+body.dark .watch-toggle.watched {
+  background: var(--accent-color);
+  color: white;
+}
+
+body.dark .remove-btn {
+  background-color: #ff4d4f;
+}
+
+body.dark .remove-btn:hover {
+  background-color: #e60000;
+}
+
+/* General styling for the rest of the layout */
+.watchlist-container {
+  min-height: 100vh;
+  padding: 2rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+header {
+  max-width: 1200px;
+  margin: 0 auto 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.header-content h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(#e50914); /* Gradient red text */
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.subtitle {
+  color: #888;
+  font-size: 1.3rem;
+}
+
+.header-controls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.search-container {
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 12px;
+  color: #666;
+}
+
+.search-container input {
+  padding: 0.8rem 1rem 0.8rem 2.5rem;
+  border-radius: 12px;
+  border: 1px solid #e1e1e1;
+  width: 280px;
+  font-size: 1rem;
+  background: transparent;
+  color: inherit;
+  transition: all 0.3s ease;
+}
+
+.search-container input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.1);
+}
+
+/* Theme Switcher styles */
+.theme-switch-wrapper {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 100;
+}
+
+.theme-switch {
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  position: relative;
+}
+
+.theme-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--accent-color);
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+/* Movie grid */
+#movieGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.movie-card {
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.movie-card:hover {
+  transform: translateY(-5px);
+}
+
+.movie-poster {
+  width: 100%;
+  aspect-ratio: 2/3;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.movie-info {
+  padding: 1.5rem;
+}
+
+.movie-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: inherit;
+}
+
+.watch-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.watch-toggle {
+  background: transparent;
+  border: 2px solid var(--accent-color);
+  color: var(--accent-color);
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.watch-toggle:hover,
+.watch-toggle.watched {
+  background: var(--accent-color);
+  color: white;
+}
+
+.remove-btn {
+  background-color: #ff4d4f;
+  border: none;
+  color: white;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background-color 0.3s ease;
+}
+
+.remove-btn:hover {
+  background-color: #e60000;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .search-container input {
+    width: 100%;
+    min-width: 200px;
+  }
+
+  #movieGrid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
