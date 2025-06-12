@@ -3,147 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Magic Recommends</title>
-    
-    <!-- Fonts and CSS -->
+    <title>Movie Magic Recommends</title>  
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap">
-    <link rel="stylesheet" href="{{ url_for('static', filename='Style.css') }}">
-
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .movie-actions {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 10px;
-            align-items: center;
-        }
-
-        .movie-actions button {
-            width: 90%;
-            padding: 10px;
-            font-size: 14px;
-            font-weight: bold;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .watch-trailer-btn,
-        .add-watchlist-btn {
-            background-color: #e50914; /* Netflix red */
-            color: white;
-        }
-
-        .add-watchlist-btn.added {
-            background-color: #1db954; /* Spotify green */
-        }
-
-        .info-box {
-            margin-top: 10px;
-            background-color: #fff3cd;
-            border-left: 6px solid #ffecb5;
-            padding: 10px;
-            border-radius: 4px;
-            font-size: 14px;
-            color: #856404;
-        }
-
-        .error {
-            color: #e74c3c;
-            font-weight: 500;
-            margin-top: 20px;
-        }
-
-        .recommendations-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .movie-card {
-            background-color: #f8f9fa;
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-
-        .movie-card img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-        }
-
-        .movie-card h3 {
-            margin: 10px 0 5px;
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .theme-switch-wrapper {
-            position: absolute;
-            top: 10px;
-            right: 20px;
-        }
-
-        .my-watchlist-link {
-            position: absolute;
-            top: 10px;
-            left: 20px;
-            font-weight: 500;
-            color: #e50914;
-            text-decoration: none;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 80px auto 40px;
-            padding: 0 20px;
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-            font-weight: 600;
-        }
-
-        .search-container {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-
-        #movie-input {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-        }
-
-        #search-btn {
-            padding: 10px 20px;
-            background-color: #e50914;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        #search-btn:hover {
-            background-color: #c40811;
-        }
-    </style>
+      <link rel="stylesheet" href="static/Style.css">
 </head>
-<body class="light-theme">
+<style>
+    .movie-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+    align-items: center;
+}
 
-    <!-- Theme Toggle -->
+.movie-actions button {
+    width: 90%;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.watch-trailer-btn {
+    background-color: #e50914; /* Netflix red */
+    color: white;
+}
+
+.add-watchlist-btn {
+    background-color: #e50914;
+    color: white;
+}
+
+/* Change color when movie is already in the watchlist */
+.add-watchlist-btn.added {
+    background-color: #1db954; /* Spotify green for added */
+    color: white;
+}
+
+</style>
+<body class="light-theme">
+    <!-- Theme toggle -->
     <div class="theme-switch-wrapper">
         <label class="theme-switch">
             <input type="checkbox" id="theme-toggle">
@@ -151,28 +53,23 @@
         </label>
     </div>
 
-    <!-- Watchlist Button -->
-    <a href="{{ url_for('watchlist') }}" class="my-watchlist-link">My Watchlist</a>
+      <!-- Watchlist Button -->
+      <a href="{{ url_for('watchlist') }}" class="my-watchlist-link">My Watchlist</a>
 
+
+    
     <div class="container">
         <h1>Movie Magic Recommends</h1>
 
-        <!-- Movie Search Form -->
+        <!-- Movie search and recommendations form -->
         <form action="/home" method="POST">
             <div class="search-container">
                 <input type="text" name="movies" id="movie-input" placeholder="Enter a movie you like..." required>
                 <button type="submit" id="search-btn">Get Recommendations</button>
             </div>
-
-            <!-- Input Guidance -->
-            <div class="info-box">
-                ⚠️ Please enter a real, exact movie title as found on TMDb.  
-                Try titles like: <strong>Avatar</strong>, <strong>Titanic</strong>, <strong>Iron Man</strong>, 
-                <strong>Avengers</strong>, <strong>Spider-Man</strong>, <strong>Inception</strong>.
-            </div>
         </form>
 
-        <!-- Movie Recommendations -->
+        <!-- Display movie recommendations -->
         <div class="recommendations-grid" id="recommendations">
             {% if status %}
                 {% for movie, poster, overview, genres, trailer in zip(movies_name, poster, movie_overviews, movie_genres, movie_trailer) %}
@@ -180,7 +77,7 @@
                         <img src="{{ poster }}" alt="{{ movie }}">
                         <h3>{{ movie }}</h3>
                         {% if trailer %}
-                            <a href="{{ trailer }}" target="_blank" class="watch-trailer-btn">Watch Trailer</a>
+                            <a href="{{ trailer }}" target="_blank">Watch Trailer</a>
                         {% else %}
                             <p>No trailer available</p>
                         {% endif %}
@@ -192,7 +89,6 @@
         </div>
     </div>
 
-    <!-- Script -->
     <script src="{{ url_for('static', filename='Script.js') }}"></script>
 </body>
 </html>
