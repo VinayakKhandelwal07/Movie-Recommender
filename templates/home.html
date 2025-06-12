@@ -63,11 +63,17 @@
 
         <!-- Movie search and recommendations form -->
         <form action="/home" method="POST">
-            <div class="search-container">
-                <input type="text" name="movies" id="movie-input" placeholder="Enter a movie you like..." required>
-                <button type="submit" id="search-btn">Get Recommendations</button>
-            </div>
-        </form>
+    <div class="search-container">
+        <input type="text" name="movies" id="movie-input" placeholder="Enter a movie you like..." required>
+        <button type="submit" id="search-btn">Get Recommendations</button>
+    </div>
+
+    <!-- Responsive warning message -->
+    <p style="margin-top: 8px; font-size: 0.9rem; color: #e50914; width: 100%; box-sizing: border-box;">
+        Please enter the correct movie title (e.g., Avatar, Titanic, Iron Man).
+    </p>
+</form>
+
 
         <!-- Display movie recommendations -->
         <div class="recommendations-grid" id="recommendations">
