@@ -85,26 +85,26 @@ This system currently uses a fixed dataset of 5,000 movies. As a result:
    ```
 2. **Create and activate a virtual environment**
 ``` bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 3. ** Install the dependencies**
    ```bash
    pip install -r requirements.txt
    ```
 4. **Set up TMDb API key**
+```bash 
+   Create a .env file in the root directory and add:
 
-Create a .env file in the root directory and add:
-
-TMDB_API_KEY=your_tmdb_api_key_here
-
+   TMDB_API_KEY=your_tmdb_api_key_here
+```
 5. **Run the application**
 ```bash 
    python app.py
 ```
 6.  **Visit in browser**
    ```bash
-http://127.0.0.1:5000
+   http://127.0.0.1:5000
 ```
 
 👥 Contributing
